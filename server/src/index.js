@@ -123,20 +123,16 @@ app.use("/api/contact", contactRouter);
 
 
 // ✅ ✅ ADD THIS PART (VERY IMPORTANT)
-const __dirnameResolved = path.resolve();
-const clientBuildPath = path.join(__dirnameResolved, "client/dist");
+const clientBuildPath = path.join(__dirname, "../../client/dist");
 
-// Serve frontend static files
 app.use(express.static(clientBuildPath));
 
-// React routing (SPA support)
 app.get("*", (req, res) => {
   if (req.originalUrl.startsWith("/api")) {
     return res.status(404).json({ error: "Route not found." });
   }
   res.sendFile(path.join(clientBuildPath, "index.html"));
 });
-
 
 // ❌ REMOVE YOUR OLD 404 HANDLER (or keep only for API if needed)
 // app.use((_req, res) => {
