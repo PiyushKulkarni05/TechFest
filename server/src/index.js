@@ -87,7 +87,8 @@ const PORT = Number(process.env.PORT || 5000);
 
 app.set("trust proxy", 1);
 
-const allowedOrigins = String(
+const isProduction = process.env.NODE_ENV === 'production';
+const allowedOrigins = isProduction ? [] : String(
   process.env.CLIENT_ORIGIN || "http://localhost:5173,http://localhost:8080"
 )
   .split(",")
@@ -97,7 +98,7 @@ const allowedOrigins = String(
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || !allowedOrigins.length || allowedOrigins.includes(origin)) {
+      if (isProduction || !origin || !allowedOrigins.length || allowedOrigins.includes(origin)) {
         callback(null, true);
         return;
       }
