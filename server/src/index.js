@@ -124,7 +124,7 @@ app.use("/api/contact", contactRouter);
 
 // ✅ ✅ ADD THIS PART (VERY IMPORTANT)
 const __dirnameResolved = path.resolve();
-const clientBuildPath = path.join(__dirnameResolved, "../../client/dist");
+const clientBuildPath = path.join(__dirnameResolved, "client/dist");
 
 // Serve frontend static files
 app.use(express.static(clientBuildPath));
